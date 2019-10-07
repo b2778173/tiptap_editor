@@ -153,7 +153,7 @@ export default {
   watch: {
     value: {
       handler: function(NewVal) {
-        console.log("watch");
+        // console.log("watch");
         this.editor.setContent(NewVal);
       },
       deep: true
@@ -178,10 +178,10 @@ export default {
             },
             content: []
           };
-          let p = {
-            type: "paragraph",
-            content: [videoJSON]
-          };
+        //   let p = {
+        //     type: "paragraph",
+        //     content: [videoJSON]
+        //   };
           //   console.log(this.value);
           this.value["content"].push(videoJSON);
           // this.editor.setContent(videoJSON, true);
@@ -225,7 +225,7 @@ export default {
 .iframe__embed {
   border: 0;
 }
-p {
+/* p {
   margin: 0 !important;
-}
+} */
 </style>
