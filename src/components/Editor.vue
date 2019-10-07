@@ -65,7 +65,7 @@
           <img class="icon" src="../assets/images/icons/image.svg" />
         </button>
 
-        <button class="menubar__button" @click="showVideoPrompt">
+        <button class="menubar__button" @click="showVideoPrompt(commands.iframe)">
           <img class="icon" src="../assets/images/icons/youtube-brands.svg" />
         </button>
       </div>
@@ -123,16 +123,30 @@ export default {
           new Image(),
           new Iframe()
         ],
-        content: ``
+        content: ``,
+        onUpdate: ({ getJSON }) => {
+          this.value = getJSON();
+        }
       }),
-      contentObject: {
-        type: "doc",
-        content: []
-      }
+      //   contentObject: {
+      //     type: "doc",
+      //     content: []
+      //   },
+      value: "default content"
     };
   },
-  mounted() {},
-
+  mounted() {
+    this.editor.setContent(this.value);
+  },
+  watch: {
+    value: {
+      handler: function(NewVal) {
+        console.log("watch");
+        this.editor.setContent(NewVal);
+      },
+      deep: true
+    }
+  },
   methods: {
     showImagePrompt(command) {
       const src = prompt("請輸入圖片網址");
@@ -140,22 +154,11 @@ export default {
         command({ src });
       }
     },
-    showVideoPrompt() {
+    showVideoPrompt(command) {
       //   console.log("add video");
       const src = prompt("請輸入影片網址");
       if (src !== null) {
-        if (src.includes("youtube")) {
-          this.contentObject["content"].push({
-            type: "iframe",
-            attrs: {
-              src: src
-            },
-            content: []
-          });
-          this.editor.setContent(this.contentObject, true);
-        }else{
-            alert('無效的網址')
-        }
+        command({ src });
       }
     }
   },
@@ -191,5 +194,8 @@ export default {
 }
 .iframe__embed {
   border: 0;
+}
+p {
+  margin: 0 !important;
 }
 </style>
