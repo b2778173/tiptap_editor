@@ -1,5 +1,6 @@
 var SvgStore = require('webpack-svgstore-plugin');
 module.exports = {
+    publicPath: './',
     runtimeCompiler: true,
     configureWebpack: {
         plugins: [
