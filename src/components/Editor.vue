@@ -29,10 +29,10 @@
 
          <button
           class="menubar__button"
-          :class="{ 'is-active': getMarkAttrs('fontColor').color ==='green' }"
-          @click="commands.fontColor({color:'green'})"
+          :class="{ 'is-active': getMarkAttrs('fontColor').color ==='black' }"
+          @click="commands.fontColor({color:'black'})"
         >
-          <div class="icon" style="background"></div>
+          <div class="icon" style="background-color: black"></div>
         </button>
 
         <button
