@@ -1,6 +1,6 @@
 <template>
   <div class="editor">
-    <editor-menu-bar :editor="editor" v-slot="{ commands, isActive }">
+    <editor-menu-bar :editor="editor" v-slot="{ commands,getMarkAttrs, isActive }">
       <div class="menubar">
         <button
           class="menubar__button"
@@ -13,16 +13,26 @@
 
         <button
           class="menubar__button"
-          :class="{ 'is-active': isActive.strike() }"
-          @click="commands.strike"
+          :class="{ 'is-active': getMarkAttrs('fontColor').color ==='green' }"
+          @click="commands.fontColor({color:'green'})"
         >
-          <!-- <icon name="bold" /> -->
-          <img class="icon" src="../assets/images/icons/font-solid.svg" />
-          <!-- <select>
-              <option>red</option>
-              <option>blue</option>
-              <option>yellow</option>
-          </select>-->
+          <div class="icon" style="background-color: green"></div>
+        </button>
+
+         <button
+          class="menubar__button"
+          :class="{ 'is-active': getMarkAttrs('fontColor').color ==='red' }"
+          @click="commands.fontColor({color:'red'})"
+        >
+          <div class="icon" style="background-color: red"></div>
+        </button>
+
+         <button
+          class="menubar__button"
+          :class="{ 'is-active': getMarkAttrs('fontColor').color ==='green' }"
+          @click="commands.fontColor({color:'green'})"
+        >
+          <div class="icon" style="background"></div>
         </button>
 
         <button
@@ -79,6 +89,7 @@
 // import Icon from "./Icon";
 import { Editor, EditorContent, EditorMenuBar } from "tiptap";
 import Iframe from "./extension/Iframe";
+import FontColor from "./extension/font-color.js";
 import {
   Blockquote,
   CodeBlock,
@@ -121,7 +132,8 @@ export default {
           new History(),
           new Strike(),
           new Image(),
-          new Iframe()
+          new Iframe(),
+          new FontColor()
         ],
         content: ``,
         onUpdate: ({ getJSON }) => {
@@ -132,7 +144,7 @@ export default {
       //     type: "doc",
       //     content: []
       //   },
-      value: "default content"
+      value: { type: "doc", content: [] }
     };
   },
   mounted() {
@@ -171,7 +183,7 @@ export default {
             content: [videoJSON]
           };
           //   console.log(this.value);
-          this.value["content"].push(p);
+          this.value["content"].push(videoJSON);
           // this.editor.setContent(videoJSON, true);
           //   this.value += `<iframe src=${src} frameborder="0" allowfullscreen="true"></iframe>`;
         } else {
