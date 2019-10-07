@@ -8,12 +8,13 @@ export default class Iframe extends Node {
 
     get schema() {
         return {
+            inline: true,
             attrs: {
                 src: {
                     default: null,
                 },
             },
-            group: 'block',
+            group: 'inline',
             selectable: false,
             parseDOM: [{
                 tag: 'iframe',
