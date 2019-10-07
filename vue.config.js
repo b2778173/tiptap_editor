@@ -1,6 +1,7 @@
 var SvgStore = require('webpack-svgstore-plugin');
 module.exports = {
-    publicPath: './',
+    publicPath: process.env.NODE_ENV === 'production' ?
+        '/tiptap_editor/' : '/',
     runtimeCompiler: true,
     configureWebpack: {
         plugins: [
