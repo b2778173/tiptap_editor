@@ -65,7 +65,7 @@
           <img class="icon" src="../assets/images/icons/image.svg" />
         </button>
 
-        <button class="menubar__button" @click="showVideoPrompt(commands.iframe)">
+        <button class="menubar__button" @click="showVideoPrompt">
           <img class="icon" src="../assets/images/icons/youtube-brands.svg" />
         </button>
       </div>
@@ -154,11 +154,29 @@ export default {
         command({ src });
       }
     },
-    showVideoPrompt(command) {
+    showVideoPrompt() {
       //   console.log("add video");
       const src = prompt("請輸入影片網址");
       if (src !== null) {
-        command({ src });
+        if (src.includes("youtube")) {
+          let videoJSON = {
+            type: "iframe",
+            attrs: {
+              src: src
+            },
+            content: []
+          };
+          let p = {
+            type: "paragraph",
+            content: [videoJSON]
+          };
+          //   console.log(this.value);
+          this.value["content"].push(p);
+          // this.editor.setContent(videoJSON, true);
+          //   this.value += `<iframe src=${src} frameborder="0" allowfullscreen="true"></iframe>`;
+        } else {
+          alert("無效的網址");
+        }
       }
     }
   },
